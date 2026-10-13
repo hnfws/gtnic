@@ -28,6 +28,35 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    'scraper' => [
+        'token' => env('SCRAPER_API_TOKEN'),
+        'accounts' => [
+            'infobazaar',
+            'pestapora',
+            'synchronizefest',
+            'jktgo',
+            'eventjakarta',
+            'kulinerdepok',
+            'infotenantyk',
+            'info.tenant',
+        ],
+        'priority_accounts' => [
+            'pestapora',
+            'synchronizefest',
+            'jktgo',
+        ],
+        'priority_keywords' => [
+            'pestapora',
+            'synchronize',
+            'stadium',
+            'gbk',
+            'ice bsd',
+            'jipexpo',
+            'curated tenant',
+            'limited slot',
+        ],
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
