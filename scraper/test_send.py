@@ -16,7 +16,8 @@ payload = {
     "longitude": 106.8346,
     "price": 1500000,
     "instagram_post_url": "https://www.instagram.com/p/C1234567890/",
-    "registration_link": "https://forms.gle/samplelink"
+    "registration_link": "https://forms.gle/samplelink",
+    "account_name": "infobazaar",
 }
 
 headers = {

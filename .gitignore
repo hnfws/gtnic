@@ -3,6 +3,8 @@
 .env.backup
 .env.production
 /scraper/instagram-state.json
+__pycache__/
+*.py[cod]
 .phpactor.json
 .phpunit.result.cache
 /.fleet

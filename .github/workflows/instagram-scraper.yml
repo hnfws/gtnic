@@ -20,6 +20,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate scraper secrets and restore Instagram session
+        env:
+          LARAVEL_API_URL: ${{ secrets.LARAVEL_API_URL }}
+          SCRAPER_API_TOKEN: ${{ secrets.SCRAPER_API_TOKEN }}
+          INSTAGRAM_SESSION_STATE: ${{ secrets.INSTAGRAM_SESSION_STATE }}
+        run: |
+          test -n "$LARAVEL_API_URL" || { echo "::error::Set the LARAVEL_API_URL Actions secret."; exit 1; }
+          test -n "$SCRAPER_API_TOKEN" || { echo "::error::Set the SCRAPER_API_TOKEN Actions secret."; exit 1; }
+          test -n "$INSTAGRAM_SESSION_STATE" || { echo "::error::Set the INSTAGRAM_SESSION_STATE Actions secret to the contents of scraper/instagram-state.json."; exit 1; }
+          printf '%s' "$INSTAGRAM_SESSION_STATE" > scraper/instagram-state.json
+          python3 -c 'import json; from pathlib import Path; state = json.loads(Path("scraper/instagram-state.json").read_text()); assert isinstance(state, dict) and isinstance(state.get("cookies"), list), "Instagram session must be a Playwright storage-state JSON object with a cookies list."'
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -32,14 +44,6 @@ jobs:
 
       - name: Install Playwright browser
         run: python -m playwright install --with-deps chromium
-
-      - name: Validate scraper secrets
-        env:
-          LARAVEL_API_URL: ${{ secrets.LARAVEL_API_URL }}
-          SCRAPER_API_TOKEN: ${{ secrets.SCRAPER_API_TOKEN }}
-        run: |
-          test -n "$LARAVEL_API_URL" || { echo "::error::Set the LARAVEL_API_URL Actions secret."; exit 1; }
-          test -n "$SCRAPER_API_TOKEN" || { echo "::error::Set the SCRAPER_API_TOKEN Actions secret."; exit 1; }
 
       - name: Run scraper
         run: python scraper/igscrap.py

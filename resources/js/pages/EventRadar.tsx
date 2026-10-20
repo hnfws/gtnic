@@ -56,7 +56,7 @@ export default function EventRadar({ events }: Props) {
                         📡 Event & Tenant Radar
                     </h1>
                     <p style={{ color: '#94a3b8', fontSize: '14px', marginTop: '4px' }}>
-                        Daftar peluang bazaar & event kuliner hasil pemeriksaan Instagram otomatis pukul 03.00 dan 18.00 WIB.
+                        Daftar peluang bazaar & event kuliner hasil pemeriksaan Instagram otomatis pukul 08.17 dan 20.17 WIB.
                     </p>
                 </header>
 

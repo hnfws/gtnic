@@ -24,8 +24,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Menambahkan kolom PostGIS Point untuk perhitungan jarak GPS
-        DB::statement('ALTER TABLE events ADD COLUMN location geography(Point, 4326)');
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement('ALTER TABLE events ADD COLUMN location geography(Point, 4326)');
+        }
     }
 
     /**

@@ -13,9 +13,11 @@ def main():
         page.goto("https://www.instagram.com/accounts/login/", wait_until="domcontentloaded")
 
         input("Login Instagram di browser yang terbuka, lalu tekan Enter di terminal ini...")
-        if "/accounts/login" in page.url:
+        if "/accounts/login" in page.url or "/challenge/" in page.url:
             browser.close()
-            raise RuntimeError("Login belum selesai; sesi tidak disimpan.")
+            raise RuntimeError(
+                "Login belum selesai atau Instagram meminta verifikasi; sesi tidak disimpan."
+            )
 
         context.storage_state(path=str(storage_state))
         browser.close()
